@@ -2,14 +2,12 @@ import React, { createContext, useState, useEffect } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { Pedometer } from 'expo-sensors';
 
-// Utwórz kontekst
 export const StepContext = createContext();
 
 export const StepProvider = ({ children }) => {
     const [pedometerAvailability, setPedometerAvailability] = useState(null);
     const [stepCount, setStepCount] = useState(0);
 
-    // Funkcja do zarządzania uprawnieniami dla Androida
     async function requestPedometerPermission() {
         if (Platform.OS === 'android') {
             const result = await PermissionsAndroid.request(

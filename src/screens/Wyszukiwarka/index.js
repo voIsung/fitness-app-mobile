@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, Alert } from 'react-native';
+import { Text, View, Button, Alert } from 'react-native';
 import { CameraView, Camera } from 'expo-camera';
+import { useTheme } from '../../context/ThemeContext';
+import styles from './StyleSheet.js';
 import axios from 'axios';
 
 const WyszukiwarkaScreen = ({ navigation }) => {
+  const { isDarkMode } = useTheme();
+  const currentStyle = isDarkMode ? styles.DarkMode : styles.WhiteMode;
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [cameraVisible, setCameraVisible] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -43,33 +48,28 @@ const WyszukiwarkaScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.subtitle}>Zeskanuj kod produktu</Text>
-      {!scanned && (
-        <CameraView
-          onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
-          barCodeScannerSettings={{
-            barCodeTypes: ['ean13', 'qr', 'pdf417', 'ean8'],
-          }}
-          style={StyleSheet.absoluteFillObject}
-        />
+    <View style={[styles.container, { backgroundColor: currentStyle.backgroundColor }]}>
+      <Text style={[styles.subtitle, { color: currentStyle.color }]}>
+        Zeskanuj kod produktu
+      </Text>
+      {!cameraVisible ? (
+        <Button title="Otwórz kamerę" onPress={() => setCameraVisible(true)} />
+      ) : (
+        <>
+          {!scanned && (
+            <CameraView
+              onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
+              barCodeScannerSettings={{
+                barCodeTypes: ['ean13', 'qr', 'pdf417', 'ean8'],
+              }}
+              style={styles.cameraView}
+            />
+          )}
+          {scanned && <Button title={'Kliknij tutaj'} onPress={() => setScanned(false)} />}
+        </>
       )}
-      {scanned && <Button title={'Kliknij tutaj'} onPress={() => setScanned(false)} />}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  subtitle: {
-    fontSize: 18,
-    marginBottom: 20,
-  },
-});
 
 export default WyszukiwarkaScreen;

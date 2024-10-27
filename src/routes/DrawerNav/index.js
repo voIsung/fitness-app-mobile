@@ -6,13 +6,31 @@ import DietaScreen from "../../screens/Dieta";
 import InformacjaScreen from "../../screens/Informacje";
 import WyszukiwarkaScreen from "../../screens/Wyszukiwarka";
 import PowiadomieniaScreen from "../../screens/Powiadomienia";
-
+import { useTheme  } from '../../context/ThemeContext';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNav = () => {
+    const { isDarkMode } = useTheme();
+
+     const headerStyle = {
+        backgroundColor: isDarkMode ? '#333' : '#fff', // Tło
+     };
+
+     const headerTitleStyle = {
+        color: isDarkMode ? '#fff' : '#000', // Kolor tekstu
+     };
+
+    const drawerStyle = {
+        backgroundColor: isDarkMode ? '#333' : '#fff', // tło
+    };
+
+     const drawerLabelStyle = {
+        color: isDarkMode ? '#fff' : '#000', // Kolor tekstu
+     };
+
     return (
-        <Drawer.Navigator>
+        <Drawer.Navigator screenOptions={{headerStyle, headerTitleStyle, drawerStyle, drawerLabelStyle}}>
             <Drawer.Screen name="Ekran Główny" component={EkranGlownyScreen} />
             <Drawer.Screen name="Wybór Treningu" component={TreningScreen} />
             <Drawer.Screen name="Śledzenie Diety" component={DietaScreen} />

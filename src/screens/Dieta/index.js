@@ -1,19 +1,24 @@
 import React, { useContext } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import CircularProgress from "react-native-circular-progress-indicator";
-import { StepContext } from './StepContext.js';
+import { StepContext } from '../../context/StepContext';
+import { useTheme } from '../../context/ThemeContext';
+import  styles  from './StyleSheet.js';
 
 const DietaScreen = ({ navigation }) => {
-    const { stepCount, pedometerAvailability } = useContext(StepContext); // Uzyskaj dostęp do kontekstu
+    const { isDarkMode } = useTheme();
+    const currentStyle = isDarkMode ? styles.DarkMode : styles.WhiteMode;
+    const { stepCount, pedometerAvailability } = useContext(StepContext);
 
     var Dist = (stepCount / 1300).toFixed(4);
     var cal = (Dist * 60).toFixed(4);
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-             <Text>DietaScreen</Text>
+        <View style={[ styles.container, { backgroundColor: currentStyle.backgroundColor }]}>
              {pedometerAvailability === "Not available" && (
-                   <Text>Is Pedometer available: Not available</Text>
+                   <Text style={{ color: currentStyle.color}}>
+                       Is Pedometer available: Not available
+                   </Text>
              )}
 
              <View style = {{flex : 1.5}}>
@@ -27,42 +32,27 @@ const DietaScreen = ({ navigation }) => {
                 inActiveStrokeOpacity = {0.5}
                 inActiveStrokeWidth = {40}
                 activeStrokeWidth = {40}
-                title = {'Step Count'}
+                title = {'Ilość Kroków'}
                 titleColor = {'#F39C12'}
-                titleStyle = {{fontWeight: 'bold'}}
+                titleStyle = {{fontWeight: 'bold', fontSize: 35}}
                 />
              </View>
 
              <View style = {{flex : 1}}>
                  <View style = {{flex : 1}}>
-                    <Text style = {[styles.textDesign, {paddingLeft : 20}]}>Cel : 6500 kroków (5km)</Text>
+                    <Text style = {[styles.textDesign, {paddingLeft : 20, color: currentStyle.color}]}>Cel : 6500 kroków (5km)</Text>
                  </View>
 
                  <View style = {{flex : 1}}>
-                    <Text style = {[styles.textDesign, {paddingLeft : 12}]}>Dystans Przebyty : {Dist} km</Text>
+                    <Text style = {[styles.textDesign, {paddingLeft : 12, color: currentStyle.color}]}>Dystans Przebyty : {Dist} km</Text>
                  </View>
 
                  <View style = {{flex : 1}}>
-                    <Text style = {[styles.textDesign, {paddingLeft : 22}]}>Spalone Kalorie : {cal}</Text>
+                    <Text style = {[styles.textDesign, {paddingLeft : 22, color: currentStyle.color}]}>Spalone Kalorie : {cal}</Text>
                  </View>
              </View>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    textDesign : {
-        backgroundColor : "rgba(155,89,182, 0.5)",
-        height : 40,
-        width : 350,
-        borderColor : "black",
-        borderWidth : 1,
-        borderRadius : 20,
-        overflow : "hidden",
-        fontSize : 25,
-        fontWeight: "bold",
-
-    }
-});
 
 export default DietaScreen;

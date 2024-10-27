@@ -1,24 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View, Switch } from 'react-native';
+import { useTheme } from '../../context/ThemeContext';
+import styles from './StyleSheet.js';
 
 const UstawieniaScreen = ({ navigation }) => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
-
-    const toggleDarkMode = () => {
-        setIsDarkMode((previousMode) => !previousMode);
-    };
-
+    const { isDarkMode, toggleDarkMode } = useTheme();
+    const currentStyle = isDarkMode ? styles.DarkMode : styles.WhiteMode;
     return (
-        <View style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: isDarkMode ? '#222' : '#fff',
-        }}>
-            <Text style={{ color: isDarkMode ? '#fff' : '#000', marginBottom: 20 }}>
+        <View style={[ styles.container, { backgroundColor: currentStyle.backgroundColor }]}>
+            <Text style={{ color: currentStyle.color, marginBottom: 20 }}>
                 UstawieniaScreen
             </Text>
-            <Text style={{ color: isDarkMode ? '#fff' : '#000', marginBottom: 10 }}>
+            <Text style={{ color: currentStyle.color, marginBottom: 10 }}>
                 Dark Mode: {isDarkMode ? "On" : "Off"}
             </Text>
             <Switch
