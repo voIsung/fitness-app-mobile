@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from "../../screens/Login";
+import RejestracjaScreen from "../../screens/Rejestracja";
 import DrawerNav from "../DrawerNav";
-import { useTheme  } from '../../context/ThemeContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -10,18 +10,14 @@ const header = {
 }
 
 const StackNav = () => {
-    const { isDarkMode } = useTheme();
 
     const headerStyle = {
-        backgroundColor: isDarkMode ? '#333' : '#fff', // Tło
+        backgroundColor: '#B0E759'
     };
 
-    const headerTitleStyle = {
-        color: isDarkMode ? '#fff' : '#000', // Kolor tekstu
-    };
-
-    return <Stack.Navigator screenOptions={{headerStyle, headerTitleStyle}}>
+    return <Stack.Navigator screenOptions={{headerStyle}}>
         <Stack.Screen name="Login" component={LoginScreen}/>
+        <Stack.Screen name="Rejestracja" component={RejestracjaScreen}/>
         <Stack.Screen name="DrawerNav" component={DrawerNav} options={header} />
     </Stack.Navigator>
 }

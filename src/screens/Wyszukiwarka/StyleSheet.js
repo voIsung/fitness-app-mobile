@@ -11,14 +11,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 20,
   },
-  DarkMode: {
-    backgroundColor: '#222',
-    color: '#fff',
-  },
-  WhiteMode: {
-    backgroundColor: '#fff',
-    color: '#000',
-  },
   cameraView: StyleSheet.absoluteFillObject,
 });
 

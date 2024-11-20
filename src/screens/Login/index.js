@@ -1,19 +1,26 @@
-import {Text, View, Button} from "react-native";
-import { useTheme } from '../../context/ThemeContext';
+import React from 'react';
+import { Text, View, Button } from "react-native";
 import styles from './StyleSheet.js';
 
 const LoginScreen = ({ navigation }) => {
-    const { isDarkMode } = useTheme();
-    const currentStyle = isDarkMode ? styles.DarkMode : styles.WhiteMode;
     return (
-        <View style={[ styles.container, { backgroundColor: currentStyle.backgroundColor }]}>
-            <Text style={{ color: currentStyle.color}}>
+        <View style={styles.container}>
+            <Text>
                 Login screen
             </Text>
             <Button
                 onPress={() => navigation.navigate('DrawerNav')}
                 title="Zaloguj się"
             />
+            <Text style={styles.description}>
+                <Text>Pierwszy raz? </Text>
+                <Text
+                    style={styles.blueText}
+                    onPress={() => navigation.navigate('Rejestracja')}
+                >
+                    Zarejestruj się
+                </Text>
+            </Text>
         </View>
     );
 }

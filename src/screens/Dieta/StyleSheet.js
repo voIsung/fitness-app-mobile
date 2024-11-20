@@ -7,23 +7,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
     textDesign: {
-        backgroundColor: "rgba(155,89,182, 0.5)",
+        backgroundColor: '#B0E759',
         height: 40,
         width: 350,
-        borderColor: "#F39C12",
+        borderColor: "#000",
         borderWidth: 1,
         borderRadius: 20,
         overflow: "hidden",
         fontSize: 25,
         fontWeight: "bold",
-    },
-    DarkMode: {
-      backgroundColor: '#222',
-      color: '#fff',
-    },
-    WhiteMode: {
-      backgroundColor: '#fff',
-      color: '#000',
     },
 });
 

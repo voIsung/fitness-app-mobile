@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, Button, Alert } from 'react-native';
 import { CameraView, Camera } from 'expo-camera';
-import { useTheme } from '../../context/ThemeContext';
 import styles from './StyleSheet.js';
 import axios from 'axios';
 
 const WyszukiwarkaScreen = ({ navigation }) => {
-  const { isDarkMode } = useTheme();
-  const currentStyle = isDarkMode ? styles.DarkMode : styles.WhiteMode;
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [cameraVisible, setCameraVisible] = useState(false);
@@ -48,8 +45,8 @@ const WyszukiwarkaScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: currentStyle.backgroundColor }]}>
-      <Text style={[styles.subtitle, { color: currentStyle.color }]}>
+    <View style={styles.container}>
+      <Text style={styles.subtitle}>
         Zeskanuj kod produktu
       </Text>
       {!cameraVisible ? (

@@ -1,13 +1,10 @@
-import {Text, View} from "react-native";
-import { useTheme } from '../../context/ThemeContext';
+import {Text, View } from "react-native";
 import styles from './StyleSheet.js';
 
 const PowiadomieniaScreen = ({ navigation }) => {
-     const { isDarkMode } = useTheme();
-     const currentStyle = isDarkMode ? styles.DarkMode : styles.WhiteMode;
     return (
-         <View style={[styles.container, { backgroundColor: currentStyle.backgroundColor }]}>
-             <Text style={{ color: currentStyle.color}}>
+         <View style={styles.container}>
+             <Text>
                 PowiadomieniaScreen
              </Text>
         </View>

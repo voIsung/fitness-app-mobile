@@ -7,14 +7,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  DarkMode: {
-    backgroundColor: '#222',
-    color: '#fff',
-  },
-  WhiteMode: {
-    backgroundColor: '#fff',
-    color: '#000',
-  },
 });
 
 export default styles;
