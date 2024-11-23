@@ -18,22 +18,25 @@ const DietaScreen = ({ navigation }) => {
                 </Text>
             )}
 
-            <View style = {{flex : 1.5}}>
-                <CircularProgress
-                    value = {stepCount}
-                    maxValue = {maxValue} //okolo 5km
-                    radius = {190}
-                    textColor = {'#000'}
-                    activeStrokeColor = {'#000'}
-                    inActiveStrokeColor = {'#B0E759'}
-                    inActiveStrokeOpacity = {0.5}
-                    inActiveStrokeWidth = {40}
-                    activeStrokeWidth = {40}
-                    title = {`/${maxValue}`}
-                    titleColor = {'#000'}
-                    titleStyle = {{fontWeight: 'bold', fontSize: 45}}
+            <View style = {styles.CircularProgressArea}>
+                <View style={styles.BorderOut}>
+                    <CircularProgress
+                        value={stepCount}
+                        maxValue={maxValue} // około 5km
+                        radius={190}
+                        textColor={'#000'}
+                        activeStrokeColor={'#D726B9'}
+                        inActiveStrokeColor={'#979292'}
+                        inActiveStrokeOpacity={0.5}
+                        inActiveStrokeWidth={40}
+                        activeStrokeWidth={40}
+                        title={`/${maxValue}`}
+                        titleColor={'#000'}
+                        titleStyle={{ fontWeight: 'bold', fontSize: 45 }}
                     />
-                    </View>
+                    <View style={styles.BorderIns}/>
+                </View>
+            </View>
 
                         <View style = {{flex : 1}}>
                     <View style = {{flex : 1}}>

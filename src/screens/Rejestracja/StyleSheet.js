@@ -7,9 +7,38 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  description: {
-    marginTop: 20,
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    width: '80%',
+    marginBottom: 10,
+    paddingLeft: 10,
+  },
+  checkboxContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  checkboxText: {
+    marginLeft: 8,
+  },
+  button: {
+    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    backgroundColor: '#11D9EF',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  description: {
+    flexDirection: 'row',
+    marginBottom: 40,
   },
   blueText: {
     color: 'blue',

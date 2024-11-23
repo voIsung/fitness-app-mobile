@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
       },
     textDesign: {
-        backgroundColor: '#B0E759',
+        backgroundColor: '#11D9EF',
         height: 40,
         width: 350,
         borderColor: "#000",
@@ -16,6 +16,26 @@ const styles = StyleSheet.create({
         overflow: "hidden",
         fontSize: 25,
         fontWeight: "bold",
+    },
+    CircularProgressArea: {
+        flex : 1.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    BorderOut: {
+        borderWidth: 4,
+        borderColor: '#000',
+        borderRadius: 195,
+    },
+    BorderIns: {
+        position: 'absolute',
+        top: 33,
+        left: 33,
+        right: 33,
+        bottom: 33,
+        borderWidth: 4,
+        borderColor: '#000',
+        borderRadius: 190,
     },
 });
 

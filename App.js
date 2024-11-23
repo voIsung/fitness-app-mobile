@@ -8,7 +8,7 @@ function App() {
     return (
     <StepProvider>
         <NavigationContainer>
-                 <StackNav/>
+            <StackNav/>
         </NavigationContainer>
      </StepProvider>
     );

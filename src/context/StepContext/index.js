@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { Pedometer } from 'expo-sensors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const StepContext = createContext();
 
@@ -18,6 +19,25 @@ export const StepProvider = ({ children }) => {
         return true;
     }
 
+    const loadStepCount = async () => {
+        try {
+            const savedStepCount = await AsyncStorage.getItem('stepCount');
+            if (savedStepCount !== null) {
+                setStepCount(parseInt(savedStepCount, 10));
+            }
+        } catch (error) {
+            console.error("Error loading step count:", error);
+        }
+    };
+
+    const saveStepCount = async (newStepCount) => {
+        try {
+            await AsyncStorage.setItem('stepCount', newStepCount.toString());
+        } catch (error) {
+            console.error("Error saving step count:", error);
+        }
+    };
+
     useEffect(() => {
         const startPedometer = async () => {
             const permission = await requestPedometerPermission();
@@ -26,8 +46,11 @@ export const StepProvider = ({ children }) => {
                 return;
             }
 
+            loadStepCount();
+
             const stepCounter = Pedometer.watchStepCount(result => {
                 setStepCount(result.steps);
+                saveStepCount(result.steps);
             });
 
             Pedometer.isAvailableAsync().then(
