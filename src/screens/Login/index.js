@@ -4,9 +4,10 @@ import { Snackbar, Checkbox } from 'react-native-paper';
 import Svg, { Defs, LinearGradient as SvgLinearGradient, Stop, Text as SvgText } from 'react-native-svg';
 import styles from './StyleSheet.js';
 import * as SecureStore from 'expo-secure-store';
+import userJson from '../../examples/users.json'; // Import użytkowników
 
 const LoginScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('');
+    const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [autoLogin, setAutoLogin] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -16,10 +17,10 @@ const LoginScreen = ({ navigation }) => {
     const checkStoredData = async () => {
         try {
             const token = await SecureStore.getItemAsync('userToken');
-            const storedEmail = await SecureStore.getItemAsync('userEmail');
+            const storedLogin = await SecureStore.getItemAsync('userLogin');
             const storedPassword = await SecureStore.getItemAsync('userPassword');
 
-            if (token && storedEmail && storedPassword) {
+            if (token && storedLogin && storedPassword) {
                 navigation.navigate('DrawerNav');
             }
         } catch (error) {
@@ -33,26 +34,32 @@ const LoginScreen = ({ navigation }) => {
         checkStoredData();
     }, []);
 
-    const saveData = async (token, email, password) => {
+    const saveData = async (token, login, password) => {
         try {
             if (autoLogin) {
                 await SecureStore.setItemAsync('userToken', token);
-                await SecureStore.setItemAsync('userEmail', email);
-                await SecureStore.setItemAsync('userPassword', password);
             }
         } catch (error) {
             console.error('Błąd podczas zapisywania danych:', error);
+        } finally {
+            await SecureStore.setItemAsync('userLogin', login);
+            await SecureStore.setItemAsync('userPassword', password);
         }
     };
 
     const handleLogin = async () => {
-        if (!email || !password) {
+        if (!login || !password) {
             setMessage('Wszystkie pola muszą być wypełnione');
             setVisible(true);
-        } else {
+            return;
+        }
+
+        const user = userJson.find(user => user.login === login);
+
+        if (user && user.haslo === password) {
             const token = 'exampleToken12345';
             try {
-                await saveData(token, email, password);
+                await saveData(token, login, password);
                 setMessage('Zalogowano pomyślnie');
                 setVisible(true);
                 navigation.navigate('DrawerNav');
@@ -60,6 +67,9 @@ const LoginScreen = ({ navigation }) => {
                 setMessage('Błąd podczas logowania');
                 setVisible(true);
             }
+        } else {
+            setMessage('Nieprawidłowy login lub hasło');
+            setVisible(true);
         }
     };
 
@@ -97,9 +107,9 @@ const LoginScreen = ({ navigation }) => {
 
             <TextInput
                 style={styles.input}
-                placeholder="E-mail"
-                value={email}
-                onChangeText={setEmail}
+                placeholder="Login"
+                value={login}
+                onChangeText={setLogin}
             />
 
             <TextInput

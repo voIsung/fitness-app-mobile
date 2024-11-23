@@ -16,12 +16,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    width: 140,
-    height: 140,
+    width: 160,
+    height: 160,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
     borderRadius: 10,
+    borderColor: "#000",
+    borderWidth: 1,
     elevation: 3, // Cień na Androidzie
     shadowColor: '#000', // Cień na iOS
     shadowOffset: { width: 0, height: 2 },
