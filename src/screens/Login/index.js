@@ -4,7 +4,7 @@ import { Snackbar, Checkbox } from 'react-native-paper';
 import Svg, { Defs, LinearGradient as SvgLinearGradient, Stop, Text as SvgText } from 'react-native-svg';
 import styles from './StyleSheet.js';
 import * as SecureStore from 'expo-secure-store';
-import userJson from '../../examples/users.json'; // Import użytkowników
+import axios from 'axios';
 
 const LoginScreen = ({ navigation }) => {
     const [login, setLogin] = useState('');
@@ -47,30 +47,43 @@ const LoginScreen = ({ navigation }) => {
         }
     };
 
-    const handleLogin = async () => {
+    const handleLogin = () => {
         if (!login || !password) {
             setMessage('Wszystkie pola muszą być wypełnione');
             setVisible(true);
             return;
         }
 
-        const user = userJson.find(user => user.login === login);
+        axios.get('http://192.168.1.16:3000/users') //ustaw swoje IP z komputera
+            .then(function (response) {
+                const users = response.data;
+                const user = users.find(user => user.login === login);
 
-        if (user && user.haslo === password) {
-            const token = 'exampleToken12345';
-            try {
-                await saveData(token, login, password);
-                setMessage('Zalogowano pomyślnie');
-                setVisible(true);
-                navigation.navigate('DrawerNav');
-            } catch (error) {
+                if (user && user.haslo === password) {
+                    const token = 'exampleToken12345';
+                    saveData(token, login, password)
+                        .then(() => {
+                            setMessage('Zalogowano pomyślnie');
+                            setVisible(true);
+                            navigation.navigate('DrawerNav');
+                        })
+                        .catch(() => {
+                            setMessage('Błąd podczas zapisywania danych');
+                            setVisible(true);
+                        });
+                } else {
+                    setMessage('Nieprawidłowy login lub hasło');
+                    setVisible(true);
+                }
+            })
+            .catch(function (error) {
+                console.error('Błąd podczas pobierania użytkowników:', error);
                 setMessage('Błąd podczas logowania');
                 setVisible(true);
-            }
-        } else {
-            setMessage('Nieprawidłowy login lub hasło');
-            setVisible(true);
-        }
+            })
+            .finally(function () {
+
+            });
     };
 
     if (loading) {

@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": "124a",
+      "login": "User1",
+      "haslo": "user1",
+      "kroki": 6500,
+      "cel": "Utrata wagi",
+      "iloscTr": 5,
+      "imie": "Jakub",
+      "nazwisko": "Pogorzelski",
+      "plec": "Mężczyzna",
+      "dataUr": "12-09-2002",
+      "waga": 80,
+      "wzrost": 181
+    },
+    {
+      "id": "123a",
+      "login": "User2",
+      "haslo": "user2",
+      "kroki": 3500,
+      "cel": "Tycie",
+      "iloscTr": 1,
+      "imie": "Marek",
+      "nazwisko": "Mostowiak",
+      "plec": "Mężczyzna",
+      "dataUr": "05-03-2001",
+      "waga": 67,
+      "wzrost": 167
+    },
+    {
+      "id": "9efb",
+      "login": "User3",
+      "haslo": "user3",
+      "imie": "Franek",
+      "nazwisko": "Malecki",
+      "waga": 81,
+      "wzrost": 165,
+      "kroki": 3750,
+      "cel": "Utrata wagi",
+      "iloscTr": 4,
+      "plec": "Mężczyzna",
+      "dataUr": "22-12-2000"
+    },
+    {
+      "id": "e21f",
+      "login": "User4",
+      "haslo": "user4",
+      "imie": "Angela",
+      "nazwisko": "Miłościwa",
+      "waga": 65,
+      "wzrost": 175,
+      "kroki": 2355,
+      "cel": "Keto",
+      "iloscTr": 6,
+      "plec": "Kobieta",
+      "dataUr": "05-09-1999"
+    }
+  ]
+}

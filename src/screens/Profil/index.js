@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, TextInput, TouchableOpacity, Alert, ScrollView, KeyboardAvoidingView } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { Picker } from '@react-native-picker/picker';
+import axios from 'axios';
 import styles from './StyleSheet.js';
-import userJson from '../../examples/users.json';
 
 const ProfilScreen = ({ navigation }) => {
     const [userData, setUserData] = useState(null);
@@ -19,9 +19,9 @@ const ProfilScreen = ({ navigation }) => {
     const loadUserData = async () => {
         try {
             const userLogin = await SecureStore.getItemAsync('userLogin');
-
             if (userLogin) {
-                const user = userJson.find(user => user.login === userLogin);
+                const response = await axios.get(`http://192.168.1.16:3000/users?login=${userLogin}`);
+                const user = response.data[0];
 
                 if (user) {
                     setUserData(user);
@@ -62,6 +62,31 @@ const ProfilScreen = ({ navigation }) => {
         }
     };
 
+    const updateUserData = async () => {
+        const userLogin = await SecureStore.getItemAsync('userLogin');
+        if (!userLogin) {
+            Alert.alert('Błąd', 'Brak zalogowanego użytkownika.');
+            return;
+        }
+
+        try {
+            const response = await axios.get(`http://192.168.1.16:3000/users?login=${userLogin}`);
+
+            if (response.data.length === 0) {
+                Alert.alert('Błąd', 'Nie znaleziono użytkownika o takim loginie.');
+                return;
+            }
+
+            const userId = response.data[0].id;
+            await axios.put(`http://192.168.1.16:3000/users/${userId}`, userData);
+
+            Alert.alert('Sukces', 'Dane zostały zaktualizowane');
+        } catch (error) {
+            console.error('Błąd podczas aktualizacji danych:', error);
+            Alert.alert('Błąd', 'Nie udało się zaktualizować danych');
+        }
+    };
+
     const handleLogout = async () => {
         try {
             await SecureStore.deleteItemAsync('userToken');
@@ -83,10 +108,7 @@ const ProfilScreen = ({ navigation }) => {
     }
 
     return (
-        <KeyboardAvoidingView
-            behavior="padding"
-            style={{ flex: 1 }}
-        >
+        <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
             <ScrollView contentContainerStyle>
                 <Text style={styles.header}>Cel związany z aktywnością</Text>
 
@@ -207,6 +229,10 @@ const ProfilScreen = ({ navigation }) => {
                         Twoje BMI wskazuje: {bmi < 18.5 ? 'Niedowaga' : bmi <= 24.9 ? 'Waga prawidłowa' : 'Nadwaga'}
                     </Text>
                 </View>
+
+                <TouchableOpacity style={styles.button} onPress={updateUserData}>
+                    <Text style={styles.buttonText}>Zapisz zmiany</Text>
+                </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button} onPress={handleLogout}>
                     <Text style={styles.buttonText}>Wyloguj się</Text>

@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import CircularProgress from "react-native-circular-progress-indicator";
 import { StepContext } from '../../context/StepContext';
 import * as SecureStore from 'expo-secure-store';
-import userJson from '../../examples/users.json';
+import axios from 'axios';
 import styles from './StyleSheet.js';
 
 const DietaScreen = ({ navigation }) => {
@@ -15,7 +15,9 @@ const DietaScreen = ({ navigation }) => {
             try {
                 const userLogin = await SecureStore.getItemAsync('userLogin');
                 if (userLogin) {
-                    const user = userJson.find(user => user.login === userLogin);
+                    const response = await axios.get(`http://192.168.1.16:3000/users?login=${userLogin}`);
+                    const user = response.data[0];
+
                     if (user) {
                         setMaxSteps(user.kroki);
                     }
@@ -26,10 +28,12 @@ const DietaScreen = ({ navigation }) => {
         };
 
         loadUserData();
+        const intervalId = setInterval(loadUserData, 5000); // odświeżanie Co 5 sekund
+        return () => clearInterval(intervalId);
     }, []);
 
-    var Dist = (stepCount / 1300).toFixed(4);
-    var cal = (Dist * 60).toFixed(4);
+    var Dist = (stepCount / 1300).toFixed(4); // Dystans w kilometrach
+    var cal = (Dist * 60).toFixed(4); // Spalone kalorie
 
     return (
         <View style={styles.container}>

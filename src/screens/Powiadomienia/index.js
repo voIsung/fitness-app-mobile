@@ -1,7 +1,7 @@
 import {Text, View } from "react-native";
 import styles from './StyleSheet.js';
 
-const PowiadomieniaScreen = ({ navigation }) => {
+const PowiadomieniaScreen = () => {
     return (
          <View style={styles.container}>
              <Text>

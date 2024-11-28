@@ -1,47 +1,60 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Snackbar, Checkbox } from 'react-native-paper';
 import Svg, { Defs, LinearGradient as SvgLinearGradient, Stop, Text as SvgText } from 'react-native-svg';
 import { Picker } from '@react-native-picker/picker';
 import styles from './StyleSheet.js';
-import userJson from '../../examples/users.json';
+import axios from 'axios';
 
 const RejestracjaScreen = ({ navigation }) => {
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [imie, setImie] = useState('');
-    const [nazwisko, setNazwisko] = useState('');
-    const [waga, setWaga] = useState('');
-    const [wzrost, setWzrost] = useState('');
-    const [kroki, setKroki] = useState('');
-    const [plec, setPlec] = useState('Mężczyzna');
-    const [cel, setCel] = useState('Utrata wagi');
-    const [dataUr, setDataUr] = useState('');
-    const [iloscTr, setIloscTr] = useState('');
+    const [userData, setUserData] = useState({
+        login: '',
+        password: '',
+        confirmPassword: '',
+        imie: '',
+        nazwisko: '',
+        waga: '',
+        wzrost: '',
+        kroki: '',
+        plec: 'Mężczyzna',
+        cel: 'Utrata wagi',
+        dataUr: '',
+        iloscTr: '',
+    });
     const [acceptedTerms, setAcceptedTerms] = useState(false);
     const [visible, setVisible] = useState(false);
     const [message, setMessage] = useState('');
 
-    const isLoginAvailable = (login) => {
-        return !userJson.find(user => user.login === login);
+    const isLoginAvailable = async (login) => {
+        try {
+            const response = await axios.get('http://192.168.1.16:3000/users');
+            console.log('Odpowiedź z serwera:', response.data);
+
+            const loginExists = response.data.some(user => user.login === login);
+
+            if (loginExists) { return false; }
+            else {return true; }
+        } catch (error) {
+            console.error('Błąd podczas sprawdzania dostępności loginu:', error);
+            return false;
+        }
     };
 
     const handleRegister = async () => {
-        // Walidacja danych
-        if (!login || !password || !confirmPassword || !imie || !nazwisko || !waga || !wzrost || !kroki || !dataUr || !iloscTr) {
+        if (!userData.login || !userData.password || !userData.confirmPassword || !userData.imie || !userData.nazwisko || !userData.waga || !userData.wzrost || !userData.kroki || !userData.dataUr || !userData.iloscTr) {
             setMessage('Wszystkie pola muszą być wypełnione');
             setVisible(true);
             return;
         }
 
-        if (password !== confirmPassword) {
+        if (userData.password !== userData.confirmPassword) {
             setMessage('Hasła nie pasują');
             setVisible(true);
             return;
         }
 
-        if (!isLoginAvailable(login)) {
+        const loginAvailable = await isLoginAvailable(userData.login);
+        if (!loginAvailable) {
             setMessage('Login jest już zajęty');
             setVisible(true);
             return;
@@ -53,24 +66,22 @@ const RejestracjaScreen = ({ navigation }) => {
             return;
         }
 
-        // Create a new user
         const newUser = {
-            login,
-            haslo: password,
-            imie,
-            nazwisko,
-            waga: parseFloat(waga),
-            wzrost: parseFloat(wzrost),
-            kroki: parseInt(kroki),
-            cel: cel,
-            iloscTr: parseInt(iloscTr),
-            plec: plec,
-            dataUr: dataUr,
+            login: userData.login,
+            haslo: userData.password,
+            imie: userData.imie,
+            nazwisko: userData.nazwisko,
+            waga: parseFloat(userData.waga),
+            wzrost: parseFloat(userData.wzrost),
+            kroki: parseInt(userData.kroki),
+            cel: userData.cel,
+            iloscTr: parseInt(userData.iloscTr),
+            plec: userData.plec,
+            dataUr: userData.dataUr,
         };
 
-        userJson.push(newUser);
-
         try {
+            await axios.post('http://192.168.1.16:3000/users', newUser);
             setMessage('Rejestracja zakończona sukcesem');
             setVisible(true);
             navigation.navigate('Login');
@@ -109,25 +120,25 @@ const RejestracjaScreen = ({ navigation }) => {
                     </SvgText>
                 </Svg>
                 <View style={styles.allInputs}>
-                <TextInput style={styles.input} placeholder="Login" value={login} onChangeText={setLogin} />
-                <TextInput style={styles.input} placeholder="Hasło" secureTextEntry value={password} onChangeText={setPassword} />
-                <TextInput style={styles.input} placeholder="Potwierdź Hasło" secureTextEntry value={confirmPassword} onChangeText={setConfirmPassword} />
-                <TextInput style={styles.input} placeholder="Imię" value={imie} onChangeText={setImie} />
-                <TextInput style={styles.input} placeholder="Nazwisko" value={nazwisko} onChangeText={setNazwisko} />
-                <TextInput style={styles.input} placeholder="Waga (kg)" keyboardType="numeric" value={waga} onChangeText={setWaga} />
-                <TextInput style={styles.input} placeholder="Wzrost (cm)" keyboardType="numeric" value={wzrost} onChangeText={setWzrost} />
-                <TextInput style={styles.input} placeholder="Cel kroków" keyboardType="numeric" value={kroki} onChangeText={setKroki} />
-                <TextInput style={styles.input} placeholder="Data Urodzenia (DD-MM-YYYY)" value={dataUr} onChangeText={setDataUr} />
-                <TextInput style={styles.input} placeholder="Liczba treningów w tygodniu" keyboardType="numeric" value={iloscTr} onChangeText={setIloscTr} />
+                <TextInput style={styles.input} placeholder="Login" value={userData.login} onChangeText={(value) => setUserData({ ...userData, login: value })} />
+                <TextInput style={styles.input} placeholder="Hasło" secureTextEntry value={userData.password} onChangeText={(value) => setUserData({ ...userData, password: value })} />
+                <TextInput style={styles.input} placeholder="Potwierdź Hasło" secureTextEntry value={userData.confirmPassword} onChangeText={(value) => setUserData({ ...userData, confirmPassword: value })} />
+                <TextInput style={styles.input} placeholder="Imię" value={userData.imie} onChangeText={(value) => setUserData({ ...userData, imie: value })} />
+                <TextInput style={styles.input} placeholder="Nazwisko" value={userData.nazwisko} onChangeText={(value) => setUserData({ ...userData, nazwisko: value })} />
+                <TextInput style={styles.input} placeholder="Waga (kg)" keyboardType="numeric" value={userData.waga} onChangeText={(value) => setUserData({ ...userData, waga: value })} />
+                <TextInput style={styles.input} placeholder="Wzrost (cm)" keyboardType="numeric" value={userData.wzrost} onChangeText={(value) => setUserData({ ...userData, wzrost: value })} />
+                <TextInput style={styles.input} placeholder="Cel kroków" keyboardType="numeric" value={userData.kroki} onChangeText={(value) => setUserData({ ...userData, kroki: value })} />
+                <TextInput style={styles.input} placeholder="Data Urodzenia (DD-MM-YYYY)" value={userData.dataUr} onChangeText={(value) => setUserData({ ...userData, dataUr: value })} />
+                <TextInput style={styles.input} placeholder="Liczba treningów w tygodniu" keyboardType="numeric" value={userData.iloscTr} onChangeText={(value) => setUserData({ ...userData, iloscTr: value })} />
 
                 <View style={styles.pickerWrapper}>
-                    <Picker selectedValue={plec} style={styles.pickerInput} onValueChange={(itemValue) => setPlec(itemValue)}>
+                    <Picker selectedValue={userData.plec} style={styles.pickerInput} onValueChange={(itemValue) => setUserData({ ...userData, plec: itemValue })}>
                         <Picker.Item label="Mężczyzna" value="Mężczyzna" />
                         <Picker.Item label="Kobieta" value="Kobieta" />
                     </Picker>
                 </View>
                 <View style={styles.pickerWrapper}>
-                    <Picker selectedValue={cel} style={styles.pickerInput} onValueChange={(itemValue) => setCel(itemValue)}>
+                    <Picker selectedValue={userData.cel} style={styles.pickerInput} onValueChange={(itemValue) => setUserData({ ...userData, cel: itemValue })}>
                         <Picker.Item label="Tycie" value="Tycie" />
                         <Picker.Item label="Utrata wagi" value="Utrata wagi" />
                         <Picker.Item label="Keto" value="Keto" />
