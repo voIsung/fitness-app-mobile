@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import styles from './StyleSheet.js';
+import config from '../../../JsonIpConfig.js';
 
 const ProfilScreen = ({ navigation }) => {
     const [userData, setUserData] = useState(null);
@@ -20,7 +21,7 @@ const ProfilScreen = ({ navigation }) => {
         try {
             const userLogin = await SecureStore.getItemAsync('userLogin');
             if (userLogin) {
-                const response = await axios.get(`http://192.168.1.16:3000/users?login=${userLogin}`);
+                const response = await axios.get(`${config.apiBaseUrl}/users?login=${userLogin}`);
                 const user = response.data[0];
 
                 if (user) {
@@ -70,7 +71,7 @@ const ProfilScreen = ({ navigation }) => {
         }
 
         try {
-            const response = await axios.get(`http://192.168.1.16:3000/users?login=${userLogin}`);
+            const response = await axios.get(`${config.apiBaseUrl}/users?login=${userLogin}`);
 
             if (response.data.length === 0) {
                 Alert.alert('Błąd', 'Nie znaleziono użytkownika o takim loginie.');
@@ -78,7 +79,7 @@ const ProfilScreen = ({ navigation }) => {
             }
 
             const userId = response.data[0].id;
-            await axios.put(`http://192.168.1.16:3000/users/${userId}`, userData);
+            await axios.put(`${config.apiBaseUrl}/users/${userId}`, userData);
 
             Alert.alert('Sukces', 'Dane zostały zaktualizowane');
         } catch (error) {
@@ -103,7 +104,11 @@ const ProfilScreen = ({ navigation }) => {
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>Ładowanie danych...</Text>
+                <TouchableOpacity style={styles.button} onPress={handleLogout}>
+                    <Text style={styles.buttonText}>Wyloguj się</Text>
+                </TouchableOpacity>
             </View>
+
         );
     }
 

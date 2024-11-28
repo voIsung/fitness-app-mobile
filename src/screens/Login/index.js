@@ -5,6 +5,7 @@ import Svg, { Defs, LinearGradient as SvgLinearGradient, Stop, Text as SvgText }
 import styles from './StyleSheet.js';
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
+import config from '../../../JsonIpConfig.js';
 
 const LoginScreen = ({ navigation }) => {
     const [login, setLogin] = useState('');
@@ -54,7 +55,7 @@ const LoginScreen = ({ navigation }) => {
             return;
         }
 
-        axios.get('http://192.168.1.16:3000/users') //ustaw swoje IP z komputera
+        axios.get(`${config.apiBaseUrl}/users`)
             .then(function (response) {
                 const users = response.data;
                 const user = users.find(user => user.login === login);

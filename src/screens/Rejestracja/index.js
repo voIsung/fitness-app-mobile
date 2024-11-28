@@ -5,6 +5,7 @@ import Svg, { Defs, LinearGradient as SvgLinearGradient, Stop, Text as SvgText }
 import { Picker } from '@react-native-picker/picker';
 import styles from './StyleSheet.js';
 import axios from 'axios';
+import config from '../../../JsonIpConfig.js';
 
 const RejestracjaScreen = ({ navigation }) => {
     const [userData, setUserData] = useState({
@@ -27,13 +28,12 @@ const RejestracjaScreen = ({ navigation }) => {
 
     const isLoginAvailable = async (login) => {
         try {
-            const response = await axios.get('http://192.168.1.16:3000/users');
+            const response = await axios.get(`${config.apiBaseUrl}/users`);
             console.log('Odpowiedź z serwera:', response.data);
 
             const loginExists = response.data.some(user => user.login === login);
 
-            if (loginExists) { return false; }
-            else {return true; }
+            return !loginExists;
         } catch (error) {
             console.error('Błąd podczas sprawdzania dostępności loginu:', error);
             return false;
@@ -81,7 +81,7 @@ const RejestracjaScreen = ({ navigation }) => {
         };
 
         try {
-            await axios.post('http://192.168.1.16:3000/users', newUser);
+            await axios.post(`${config.apiBaseUrl}/users`, newUser);
             setMessage('Rejestracja zakończona sukcesem');
             setVisible(true);
             navigation.navigate('Login');

@@ -15,10 +15,15 @@ A JavaScript application about fitness.
 
 ## Running the App
 
-1. Open in CMD or any kind of Console
-2. Start Expo:
+1. Change IP in JsonIpConfig.js on your IP
+2. Open in CMD or any kind of Console
+3. Start Json Server:
+	```bash
+	npx json-server db.json
+    ```
+4. Start Expo:
 	```bash
 	npx expo start
     ```
-3. Open http://localhost:8081/
+5. Open http://localhost:8081/
 

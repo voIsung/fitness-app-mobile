@@ -5,8 +5,9 @@ import { StepContext } from '../../context/StepContext';
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import styles from './StyleSheet.js';
+import config from '../../../JsonIpConfig.js';
 
-const DietaScreen = ({ navigation }) => {
+const DietaScreen = () => {
     const { stepCount, pedometerAvailability } = useContext(StepContext);
     const [maxSteps, setMaxSteps] = useState(0);
 
@@ -15,7 +16,7 @@ const DietaScreen = ({ navigation }) => {
             try {
                 const userLogin = await SecureStore.getItemAsync('userLogin');
                 if (userLogin) {
-                    const response = await axios.get(`http://192.168.1.16:3000/users?login=${userLogin}`);
+                    const response = await axios.get(`${config.apiBaseUrl}/users?login=${userLogin}`);
                     const user = response.data[0];
 
                     if (user) {
@@ -32,8 +33,8 @@ const DietaScreen = ({ navigation }) => {
         return () => clearInterval(intervalId);
     }, []);
 
-    var Dist = (stepCount / 1300).toFixed(4); // Dystans w kilometrach
-    var cal = (Dist * 60).toFixed(4); // Spalone kalorie
+    let Dist = (stepCount / 1300).toFixed(4); // Dystans w kilometrach
+    let cal = (Dist * 60).toFixed(4); // Spalone kalorie
 
     return (
         <View style={styles.container}>
