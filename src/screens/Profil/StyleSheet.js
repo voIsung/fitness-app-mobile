@@ -75,9 +75,7 @@ const styles = StyleSheet.create({
   },
   pickerInput: {
     width: '100%',
-    height: 40,
-    paddingBottom: 20,
-    marginBottom: 20,
+    height: 'auto',
   },
   inputRow: {
     flexDirection: 'row',
@@ -90,6 +88,25 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     marginBottom: 10,
   },
+  image: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    borderWidth:2,
+    borderStyle:'solid',
+    borderColor:'#00000',
+    borderRadius:5,
+    width: '100%',
+    height: '100%',
+    
+  },
+touchable:{
+    width: 120,
+    height: 120,
+    position: 'absolute',
+    top:-50,
+    left:220,
+},
 });
 
 export default styles;
