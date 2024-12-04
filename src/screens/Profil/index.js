@@ -5,12 +5,30 @@ import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import styles from './StyleSheet.js';
 import config from '../../../JsonIpConfig.js';
+import * as ImagePicker from 'expo-image-picker';
+import { Image } from 'react-native';
 
 const ProfilScreen = ({ navigation }) => {
     const [userData, setUserData] = useState(null);
     const [bmi, setBmi] = useState(0);
     const [gender, setGender] = useState('');
     const [goal, setGoal] = useState('');
+    const [image, setImage] = useState(null);
+
+    const pickImage = async() =>{
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes:ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1,1],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if(!result.canceled){
+            setImage(result.assets[0].uri);
+        }
+    };
 
     const calculateBmi = (weight, height) => {
         const bmiValue = (weight / ((height / 100) ** 2)).toFixed(2);
@@ -125,6 +143,21 @@ const ProfilScreen = ({ navigation }) => {
                         value={String(userData.kroki)}
                         onChangeText={(text) => handleChange('kroki', parseInt(text) || 0)}
                     />
+                </View>
+
+                <View>
+                    <TouchableOpacity onPress={pickImage} style={styles.touchable}>
+                        {image ?(<Image
+                                    source={{uri:image}}
+                                    style={styles.image}
+                                    resizeMode="cover"
+                                    />) 
+                                :(<Image
+                                    source={require('../../../assets/personImage.png')}
+                                    style={styles.image}
+                                    resizeMode="cover"
+                                    />)}
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.formGroup}>
