@@ -27,6 +27,11 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
   },
+  nutriScoreImage: {
+    width: 240,
+    height: 240,
+    alignSelf: 'center',
+  },
 });
 
 export default styles;
