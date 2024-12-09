@@ -32,10 +32,16 @@ const WyszukiwarkaScreen = ({ navigation }) => {
         const sugar = product.nutriments ? product.nutriments['sugars_100g'] : 'N/A';
         const proteins = product.nutriments ? product.nutriments['proteins_100g'] : 'N/A';
 
-        Alert.alert(
-          'Szczegóły produktu',
-          `Nazwa: ${product.product_name}\nNutri-Score: ${nutriScore}\nWartość energetyczna: ${calories} kcal/100g\nTłuszcz: ${fat} g/100g\nCukry: ${sugar} g/100g\nBiałko: ${proteins} g/100g`
-        );
+        navigation.navigate('Informacje o Produkcie', {
+          productDetails: {
+            name: product.product_name || 'N/A',
+            nutriScore,
+            calories,
+            fat,
+            sugar,
+            proteins
+          }
+        });
       } else {
         Alert.alert('Nie znaleziono produktu');
       }
@@ -45,27 +51,27 @@ const WyszukiwarkaScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.subtitle}>
-        Zeskanuj kod produktu
-      </Text>
-      {!cameraVisible ? (
-        <Button title="Otwórz kamerę" onPress={() => setCameraVisible(true)} />
-      ) : (
-        <>
-          {!scanned && (
-            <CameraView
-              onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
-              barCodeScannerSettings={{
-                barCodeTypes: ['ean13', 'qr', 'pdf417', 'ean8'],
-              }}
-              style={styles.cameraView}
-            />
-          )}
-          {scanned && <Button title={'Kliknij tutaj'} onPress={() => setScanned(false)} />}
-        </>
-      )}
-    </View>
+      <View style={styles.container}>
+        <Text style={styles.subtitle}>
+          Zeskanuj kod produktu
+        </Text>
+        {!cameraVisible ? (
+            <Button title="Otwórz kamerę" onPress={() => setCameraVisible(true)} />
+        ) : (
+            <>
+              {!scanned && (
+                  <CameraView
+                      onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
+                      barCodeScannerSettings={{
+                        barCodeTypes: ['ean13', 'qr', 'pdf417', 'ean8'],
+                      }}
+                      style={styles.cameraView}
+                  />
+              )}
+              {scanned && <Button title={'Kliknij tutaj'} onPress={() => setScanned(false)} />}
+            </>
+        )}
+      </View>
   );
 };
 
