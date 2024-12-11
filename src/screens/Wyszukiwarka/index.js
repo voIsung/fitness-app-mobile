@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button, Alert } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import { CameraView, Camera } from 'expo-camera';
 import styles from './StyleSheet.js';
 import axios from 'axios';
+import InformacjeScreen from '../Informacje/index.js';
 
 const WyszukiwarkaScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [cameraVisible, setCameraVisible] = useState(false);
+  const [product, setProduct] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -25,35 +27,26 @@ const WyszukiwarkaScreen = ({ navigation }) => {
     try {
       const response = await axios.get(`https://world.openfoodfacts.net/api/v2/product/${barcode}`);
       if (response.data && response.data.product) {
-        const product = response.data.product;
-        const nutriScore = product.nutrition_grades_tags ? product.nutrition_grades_tags[0] : 'N/A';
-        const calories = product.nutriments ? product.nutriments['energy-kcal_100g'] : 'N/A';
-        const fat = product.nutriments ? product.nutriments['fat_100g'] : 'N/A';
-        const sugar = product.nutriments ? product.nutriments['sugars_100g'] : 'N/A';
-        const proteins = product.nutriments ? product.nutriments['proteins_100g'] : 'N/A';
-
-        Alert.alert(
-          'Szczegóły produktu',
-          `Nazwa: ${product.product_name}\nNutri-Score: ${nutriScore}\nWartość energetyczna: ${calories} kcal/100g\nTłuszcz: ${fat} g/100g\nCukry: ${sugar} g/100g\nBiałko: ${proteins} g/100g`
-        );
+        setProduct(response.data.product);
       } else {
-        Alert.alert('Nie znaleziono produktu');
+        setProduct(null);
+        alert('Nie znaleziono produktu');
       }
     } catch (error) {
-      Alert.alert('Wystąpił błąd podczas pobierania szczegółów produktu');
+      alert('Wystąpił błąd podczas pobierania szczegółów produktu');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.subtitle}>
-        Zeskanuj kod produktu
-      </Text>
-      {!cameraVisible ? (
-        <Button title="Otwórz kamerę" onPress={() => setCameraVisible(true)} />
+      {product ? (
+        <InformacjeScreen product={product} />
       ) : (
         <>
-          {!scanned && (
+          <Text style={styles.subtitle}>Zeskanuj kod produktu</Text>
+          {!cameraVisible ? (
+            <Button title="Otwórz kamerę" onPress={() => setCameraVisible(true)} />
+          ) : (
             <CameraView
               onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
               barCodeScannerSettings={{
@@ -62,7 +55,7 @@ const WyszukiwarkaScreen = ({ navigation }) => {
               style={styles.cameraView}
             />
           )}
-          {scanned && <Button title={'Kliknij tutaj'} onPress={() => setScanned(false)} />}
+          {scanned && <Button title={'Skanuj ponownie'} onPress={() => setScanned(false)} />}
         </>
       )}
     </View>
