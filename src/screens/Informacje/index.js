@@ -3,12 +3,12 @@ import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import styles from './StyleSheet.js';
 
 const NUTRI_SCORE_IMAGES = {
-  a: require('../../../assets/nutriScoreA.png'),
-  b: require('../../../assets/nutriScoreB.png'),
-  c: require('../../../assets/nutriScoreC.png'),
-  d: require('../../../assets/nutriScoreD.png'),
-  e: require('../../../assets/nutriScoreE.png'),
-  default: require('../../../assets/nutriScoreDefault.png'),
+  a: require('../../../assets/NtrScore/nutriScoreA.png'),
+  b: require('../../../assets/NtrScore/nutriScoreB.png'),
+  c: require('../../../assets/NtrScore/nutriScoreC.png'),
+  d: require('../../../assets/NtrScore/nutriScoreD.png'),
+  e: require('../../../assets/NtrScore/nutriScoreE.png'),
+  default: require('../../../assets/NtrScore/nutriScoreDefault.png'),
 };
 
 const InformacjeScreen = ({ product }) => {
