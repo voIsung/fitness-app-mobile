@@ -8,11 +8,11 @@ const EkranGlownyScreen = ({ navigation }) => {
             {/* Pierwszy rząd */}
             <View style={styles.row}>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Wybór Treningu")}>
-                    <Image source={require('../../../assets/Trening.png')} style={styles.image} />
+                    <Image source={require('../../../assets/EkrGlZdj/Trening.png')} style={styles.image} />
                     <Text style={styles.label}>Wybór Treningu</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Wyszukiwarka Produktów")}>
-                    <Image source={require('../../../assets/Wyszukiwarka.png')} style={styles.image} />
+                    <Image source={require('../../../assets/EkrGlZdj/Wyszukiwarka.png')} style={styles.image} />
                     <Text style={styles.label}>Wyszukiwarka produktów</Text>
                 </TouchableOpacity>
             </View>
@@ -20,11 +20,11 @@ const EkranGlownyScreen = ({ navigation }) => {
             {/* Drugi rząd */}
             <View style={styles.row}>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Powiadomienia")}>
-                    <Image source={require('../../../assets/Powiadomienia.png')} style={styles.image} />
+                    <Image source={require('../../../assets/EkrGlZdj/Powiadomienia.png')} style={styles.image} />
                     <Text style={styles.label}>Powiadomienia</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Śledzenie Diety")}>
-                    <Image source={require('../../../assets/Dieta.png')} style={styles.image} />
+                    <Image source={require('../../../assets/EkrGlZdj/Dieta.png')} style={styles.image} />
                     <Text style={styles.label}>Śledzenie Diety</Text>
                 </TouchableOpacity>
             </View>
@@ -32,7 +32,7 @@ const EkranGlownyScreen = ({ navigation }) => {
             {/* Trzeci rząd */}
             <View style={styles.row}>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Profil")}>
-                    <Image source={require('../../../assets/Profil.png')} style={styles.image} />
+                    <Image source={require('../../../assets/EkrGlZdj/Profil.png')} style={styles.image} />
                     <Text style={styles.label}>Profil</Text>
                 </TouchableOpacity>
             </View>
