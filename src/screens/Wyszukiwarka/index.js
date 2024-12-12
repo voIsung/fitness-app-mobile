@@ -3,13 +3,11 @@ import { Text, View, Button } from 'react-native';
 import { CameraView, Camera } from 'expo-camera';
 import styles from './StyleSheet.js';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
 
-const WyszukiwarkaScreen = () => {
+const WyszukiwarkaScreen = ({navigation}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [cameraVisible, setCameraVisible] = useState(false);
-  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
