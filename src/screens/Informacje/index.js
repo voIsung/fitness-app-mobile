@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import styles from './StyleSheet.js';
 
 const NUTRI_SCORE_IMAGES = {
@@ -11,58 +11,75 @@ const NUTRI_SCORE_IMAGES = {
   default: require('../../../assets/NtrScore/nutriScoreDefault.png'),
 };
 
-const InformacjeScreen = ({ product }) => {
-    const nutriScore = product.nutrition_grades_tags ? product.nutrition_grades_tags[0] : 'default';
-  
+const InformacjeScreen = ({ route }) => {
+  const { productDetails } = route.params || {};
+
+  if (!productDetails) {
     return (
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.container}>
-          <Text style={styles.title}>{product.product_name || 'Nieznana nazwa produktu'}</Text>
-          
-          {product.image_url && (
-            <Image
-              source={{ uri: product.image_url }}
-              style={styles.productImage}
-            />
-          )}
-  
-          <View style={styles.tableContainer}>
-            <Text style={styles.tableTitle}>Wartości odżywcze (100g):</Text>
-            <View style={styles.table}>
-              <View style={styles.row}>
-                <Text style={styles.cell}>Wartość energetyczna</Text>
-                <Text style={styles.cell}>{product.nutriments['energy-kcal_100g'] || 'N/A'} kcal</Text>
-              </View>
-              <View style={styles.row}>
-                <Text style={styles.cell}>Tłuszcz</Text>
-                <Text style={styles.cell}>{product.nutriments['fat_100g'] || 'N/A'} g</Text>
-              </View>
-              <View style={styles.row}>
-                <Text style={styles.cell}>Cukry</Text>
-                <Text style={styles.cell}>{product.nutriments['sugars_100g'] || 'N/A'} g</Text>
-              </View>
-              <View style={styles.row}>
-                <Text style={styles.cell}>Białko</Text>
-                <Text style={styles.cell}>{product.nutriments['proteins_100g'] || 'N/A'} g</Text>
-              </View>
-              <View style={styles.row}>
-                <Text style={styles.cell}>Sól</Text>
-                <Text style={styles.cell}>{product.nutriments['salt_100g'] || 'N/A'} g</Text>
-              </View>
+      <View style={styles.container}>
+        <Text>Brak danych o produkcie.</Text>
+      </View>
+    );
+  }
+
+  const {
+    name,
+    nutriScore = 'default',
+    calories = 'N/A',
+    fat = 'N/A',
+    sugar = 'N/A',
+    proteins = 'N/A',
+    image_url,
+  } = productDetails;
+
+  const nutriScoreKey =
+    Array.isArray(nutriScore) && nutriScore.length > 0
+      ? nutriScore[0].toLowerCase()
+      : 'default';
+
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{name}</Text>
+
+        {image_url ? (
+          <Image source={{ uri: image_url }} style={styles.productImage} />
+        ) : (
+          <Text>Brak zdjęcia produktu</Text>
+        )}
+
+        <View style={styles.tableContainer}>
+          <Text style={styles.tableTitle}>Wartości odżywcze (100g):</Text>
+          <View style={styles.table}>
+            <View style={styles.row}>
+              <Text style={styles.cell}>Kalorie:</Text>
+              <Text style={styles.cell}>{calories} kcal</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.cell}>Tłuszcz:</Text>
+              <Text style={styles.cell}>{fat} g</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.cell}>Cukry:</Text>
+              <Text style={styles.cell}>{sugar} g</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.cell}>Białko:</Text>
+              <Text style={styles.cell}>{proteins} g</Text>
             </View>
           </View>
-  
-          <View style={styles.nutriScoreContainer}>
-            <Text style={styles.nutriScoreLabel}>Nutri-Score:</Text>
-            <Image
-              source={NUTRI_SCORE_IMAGES[nutriScore.toLowerCase()]}
-              style={styles.nutriScoreImage}
-            />
-          </View>
         </View>
-      </ScrollView>
-    );
-  };
-  
+
+        <View style={styles.nutriScoreContainer}>
+          <Text style={styles.nutriScoreLabel}>Nutri-Score:</Text>
+          <Image
+            source={NUTRI_SCORE_IMAGES[nutriScoreKey] || NUTRI_SCORE_IMAGES.default}
+            style={styles.nutriScoreImage}
+          />
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
 
 export default InformacjeScreen;
