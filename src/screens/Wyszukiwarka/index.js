@@ -5,7 +5,7 @@ import styles from './StyleSheet.js';
 import axios from 'axios';
 import InformacjeScreen from '../Informacje/index.js';
 
-const WyszukiwarkaScreen = ({ navigation }) => {
+const WyszukiwarkaScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [cameraVisible, setCameraVisible] = useState(false);
@@ -14,7 +14,7 @@ const WyszukiwarkaScreen = ({ navigation }) => {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === hasPermission);
     })();
   }, []);
 
@@ -25,7 +25,7 @@ const WyszukiwarkaScreen = ({ navigation }) => {
 
   const fetchProductData = async (barcode) => {
     try {
-      const response = await axios.get(`https://world.openfoodfacts.net/api/v2/product/${barcode}`);
+      const response = await axios.get(`https://world.openfoodfacts.org/api/v3/product/${barcode}.json`);
       if (response.data && response.data.product) {
         setProduct(response.data.product);
       } else {
@@ -49,9 +49,6 @@ const WyszukiwarkaScreen = ({ navigation }) => {
           ) : (
             <CameraView
               onBarcodeScanned={scanned ? undefined : handleBarcodeScanned}
-              barCodeScannerSettings={{
-                barCodeTypes: ['ean13', 'qr', 'pdf417', 'ean8'],
-              }}
               style={styles.cameraView}
             />
           )}
