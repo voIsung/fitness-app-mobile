@@ -6,11 +6,15 @@ import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import styles from './StyleSheet.js';
 import config from '../../../JsonIpConfig.js';
+import { useNotifications } from '../../context/NotificationContext/index.js';
 
 const DietaScreen = () => {
     const { stepCount, pedometerAvailability } = useContext(StepContext);
     const [maxSteps, setMaxSteps] = useState(0);
 
+    const [goalReached, setGoalReached] = useState(false);
+    const {addNotification} = useNotifications();
+    
     useEffect(() => {
         const loadUserData = async () => {
             try {
@@ -35,6 +39,18 @@ const DietaScreen = () => {
 
     let Dist = (stepCount / 1300).toFixed(4); // Dystans w kilometrach
     let cal = (Dist * 60).toFixed(4); // Spalone kalorie
+    
+    // Sprawdzenie czy osiągnięto cel kroków
+    useEffect(() => {
+        if (stepCount >= 10 && !goalReached) {
+            addNotification({
+                id: new Date().getTime(),
+                title: "Gratulacje! :D",
+                message: "Osiągnąłeś swój cel kroków!!!"
+            });
+            setGoalReached(true);
+        }
+    }, [stepCount, goalReached, addNotification]);
 
     return (
         <View style={styles.container}>
