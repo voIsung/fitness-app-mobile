@@ -21,6 +21,7 @@ const RejestracjaScreen = ({ navigation }) => {
         cel: 'Utrata wagi',
         dataUr: '',
         iloscTr: '',
+        imageUri: "",
     });
     const [acceptedTerms, setAcceptedTerms] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -78,6 +79,7 @@ const RejestracjaScreen = ({ navigation }) => {
             iloscTr: parseInt(userData.iloscTr),
             plec: userData.plec,
             dataUr: userData.dataUr,
+            imageUri: userData.imageUri,
         };
 
         try {
