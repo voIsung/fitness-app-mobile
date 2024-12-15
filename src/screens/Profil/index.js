@@ -26,7 +26,9 @@ const ProfilScreen = ({ navigation }) => {
         console.log(result);
 
         if(!result.canceled){
-            setImage(result.assets[0].uri);
+            const imageUri = result.assets[0].uri
+            setImage(imageUri);
+            handleChange('imageUri',imageUri);
         }
     };
 
@@ -45,6 +47,7 @@ const ProfilScreen = ({ navigation }) => {
                 if (user) {
                     setUserData(user);
                     setGender(user.plec);
+                    setImage(user.imageUri);
                     setGoal(user.cel);
                     calculateBmi(user.waga, user.wzrost);
                 } else {
