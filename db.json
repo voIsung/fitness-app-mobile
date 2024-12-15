@@ -11,8 +11,9 @@
       "nazwisko": "Pogorzelski",
       "plec": "Mężczyzna",
       "dataUr": "12-09-2002",
-      "waga": 80,
-      "wzrost": 181
+      "waga": 85,
+      "wzrost": 181,
+      "imageUri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252Ffitness-app-mobile-9ca83541-74ed-4198-a29a-81b630065712/ImagePicker/a2fc79aa-a60d-4799-a311-038b7ffd9e6f.jpeg"
     },
     {
       "id": "123a",
@@ -26,7 +27,8 @@
       "plec": "Mężczyzna",
       "dataUr": "05-03-2001",
       "waga": 67,
-      "wzrost": 167
+      "wzrost": 167,
+      "imageUri": ""
     },
     {
       "id": "9efb",
@@ -40,7 +42,8 @@
       "cel": "Utrata wagi",
       "iloscTr": 4,
       "plec": "Mężczyzna",
-      "dataUr": "22-12-2001"
+      "dataUr": "22-12-2001",
+      "imageUri": ""
     },
     {
       "id": "e21f",
@@ -54,7 +57,23 @@
       "cel": "Keto",
       "iloscTr": 6,
       "plec": "Kobieta",
-      "dataUr": "05-09-1999"
+      "dataUr": "05-09-1999",
+      "imageUri": ""
+    },
+    {
+      "id": "f5a1",
+      "login": "Test",
+      "haslo": "Test",
+      "imie": "Test",
+      "nazwisko": "Test",
+      "waga": 123,
+      "wzrost": 193,
+      "kroki": 5000,
+      "cel": "Utrata wagi",
+      "iloscTr": 5,
+      "plec": "Mężczyzna",
+      "dataUr": "12.12.2002",
+      "imageUri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252Ffitness-app-mobile-9ca83541-74ed-4198-a29a-81b630065712/ImagePicker/7e9aad39-01be-45a1-a345-2a90893d9327.jpeg"
     }
   ]
 }
