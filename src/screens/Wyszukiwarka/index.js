@@ -94,7 +94,7 @@ const WyszukiwarkaScreen = ({ navigation }) => {
       <View style={styles.searchBarContainer}>
         <TextInput
           style={styles.searchBar}
-          placeholder="Search for products"
+          placeholder="Wyszukaj produkt"
           value={searchText}
           onChangeText={setSearchText}
         />
