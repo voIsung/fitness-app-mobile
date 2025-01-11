@@ -49,22 +49,22 @@ const InformacjeScreen = ({ route }) => {
         )}
 
         <View style={styles.tableContainer}>
-          <Text style={styles.tableTitle}>Wartości odżywcze (100g):</Text>
+          <Text style={styles.tableTitle}>Przeciętna wartość odżywcza w 100g:</Text>
           <View style={styles.table}>
             <View style={styles.row}>
-              <Text style={styles.cell}>Kalorie:</Text>
+              <Text style={styles.cell}>wartość energetyczna</Text>
               <Text style={styles.cell}>{calories} kcal</Text>
             </View>
             <View style={styles.row}>
-              <Text style={styles.cell}>Tłuszcz:</Text>
+              <Text style={styles.cell}>tłuszcz</Text>
               <Text style={styles.cell}>{fat} g</Text>
             </View>
             <View style={styles.row}>
-              <Text style={styles.cell}>Cukry:</Text>
+              <Text style={styles.cell}>węglowodany</Text>
               <Text style={styles.cell}>{sugar} g</Text>
             </View>
             <View style={styles.row}>
-              <Text style={styles.cell}>Białko:</Text>
+              <Text style={styles.cell}>białko</Text>
               <Text style={styles.cell}>{proteins} g</Text>
             </View>
           </View>

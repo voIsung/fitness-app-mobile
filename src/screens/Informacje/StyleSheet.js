@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   table: {
-    borderWidth: 1,
-    borderColor: '#ccc',
+    borderWidth: 2,
+    borderColor: '#000',
     borderRadius: 8,
     overflow: 'hidden',
   },
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomWidth: 2,
+    borderBottomColor: '#000',
   },
   cell: {
     fontSize: 16,
