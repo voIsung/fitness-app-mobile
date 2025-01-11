@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import { CameraView } from 'expo-camera';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
