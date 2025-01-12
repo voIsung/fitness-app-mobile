@@ -1,16 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity  } from 'react-native';
 import CircularProgress from "react-native-circular-progress-indicator";
 import { StepContext } from '../../context/StepContext';
+import { ProductContext } from '../../context/ProductContext';
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 import styles from './StyleSheet.js';
 import config from '../../../JsonIpConfig.js';
-import { useNotifications } from '../../context/NotificationContext/index.js';
+import { useNotifications } from '../../context/NotificationContext';
 
-const DietaScreen = () => {
+const DietaScreen = ({ navigation }) => {
     const { stepCount, pedometerAvailability } = useContext(StepContext);
     const [maxSteps, setMaxSteps] = useState(0);
+    const { getTotalNutrients } = useContext(ProductContext);
 
     const [goalReached, setGoalReached] = useState(false);
     const {addNotification} = useNotifications();
@@ -39,6 +41,7 @@ const DietaScreen = () => {
 
     let Dist = (stepCount / 1300).toFixed(4); // Dystans w kilometrach
     let cal = (Dist * 60).toFixed(4); // Spalone kalorie
+    const { calories: consumedCalories } = getTotalNutrients(); // Pobranie kalorii spożytych z kontekstu
     
     // Sprawdzenie czy osiągnięto cel kroków
     useEffect(() => {
@@ -67,7 +70,7 @@ const DietaScreen = () => {
                         maxValue={maxSteps || 6500}
                         radius={190}
                         textColor={'#000'}
-                        activeStrokeColor={'#D726B9'}
+                        activeStrokeColor={'#11D9EF'}
                         inActiveStrokeColor={'#979292'}
                         inActiveStrokeOpacity={0.5}
                         inActiveStrokeWidth={40}
@@ -90,9 +93,16 @@ const DietaScreen = () => {
                 </View>
 
                 <View style={{ flex: 1 }}>
-                    <Text style={[styles.textDesign, { paddingLeft: 22 }]}>Spożyte Kalorie : 0.0000</Text>
+                    <Text style={[styles.textDesign, { paddingLeft: 22 }]}>Spożyte Kalorie : {consumedCalories}</Text>
                 </View>
             </View>
+
+            <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() => navigation.navigate("Dodane Produkty")}
+            >
+                <Text style={styles.buttonText}>Zobacz Dodane Produkty</Text>
+            </TouchableOpacity>
         </View>
     );
 };

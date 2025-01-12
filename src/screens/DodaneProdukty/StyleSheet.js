@@ -32,6 +32,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  removeButton: {
+    position: 'absolute',
+    right: 15,
+  },
+  header: {
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    marginBottom: 8,
+  },
+  headerText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#333',
+  },
 });
 
 export default styles;

@@ -35,7 +35,6 @@ const DrawerNav = () => {
             <Drawer.Screen name="Wyszukiwarka Produktów" component={WyszukiwarkaScreen} />
             <Drawer.Screen name="Powiadomienia" component={PowiadomieniaScreen} />
             <Drawer.Screen name="Profil" component={ProfilScreen} />
-            <Drawer.Screen name="Dodane Produkty" component={DodaneProduktyScreen} />
         </Drawer.Navigator>
     );
 };
