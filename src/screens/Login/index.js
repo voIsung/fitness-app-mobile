@@ -61,7 +61,7 @@ const LoginScreen = ({ navigation }) => {
                 const user = users.find(user => user.login === login);
 
                 if (user && user.haslo === password) {
-                    const token = 'exampleToken12345';
+                    const token = `${Date.now()}`;
                     saveData(token, login, password)
                         .then(() => {
                             setMessage('Zalogowano pomyślnie');
