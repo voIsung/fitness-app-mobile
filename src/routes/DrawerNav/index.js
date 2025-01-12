@@ -6,6 +6,7 @@ import TreningScreen from "../../screens/Trening";
 import DietaScreen from "../../screens/Dieta";
 import WyszukiwarkaScreen from "../../screens/Wyszukiwarka";
 import PowiadomieniaScreen from "../../screens/Powiadomienia";
+import DodaneProduktyScreen from '../../screens/DodaneProdukty';
 
 const Drawer = createDrawerNavigator();
 
@@ -34,6 +35,7 @@ const DrawerNav = () => {
             <Drawer.Screen name="Wyszukiwarka Produktów" component={WyszukiwarkaScreen} />
             <Drawer.Screen name="Powiadomienia" component={PowiadomieniaScreen} />
             <Drawer.Screen name="Profil" component={ProfilScreen} />
+            <Drawer.Screen name="Dodane Produkty" component={DodaneProduktyScreen} />
         </Drawer.Navigator>
     );
 };

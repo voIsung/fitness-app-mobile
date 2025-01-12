@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import styles from './StyleSheet.js';
+import { ProductContext } from '../../context/ProductContext/index.js';
+import { useContext } from 'react';
 
 const NUTRI_SCORE_IMAGES = {
   a: require('../../../assets/NtrScore/nutriScoreA.png'),
@@ -11,8 +13,9 @@ const NUTRI_SCORE_IMAGES = {
   default: require('../../../assets/NtrScore/nutriScoreDefault.png'),
 };
 
-const InformacjeScreen = ({ route }) => {
+const InformacjeScreen = ({ route, navigation }) => {
   const { productDetails } = route.params || {};
+  const { addProduct } = useContext(ProductContext);
 
   if (!productDetails) {
     return (
@@ -37,7 +40,22 @@ const InformacjeScreen = ({ route }) => {
       ? nutriScore[0].toLowerCase()
       : 'default';
 
-  return (
+const handleAddProduct = () => {
+  addProduct({
+    name,
+    nutriScore,
+    calories,
+    fat,
+    sugar,
+    proteins,
+    image_url,
+  });
+
+  navigation.navigate("Dodane Produkty");
+};
+
+return (
+  <View style={styles.mainContainer}>
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>{name}</Text>
@@ -49,7 +67,7 @@ const InformacjeScreen = ({ route }) => {
         )}
 
         <View style={styles.tableContainer}>
-          <Text style={styles.tableTitle}>Przeciętna wartość odżywcza w 100g:</Text>
+          <Text style={styles.tableTitle}>Przeciętna wartość odżywcza w 100g produktu:</Text>
           <View style={styles.table}>
             <View style={styles.row}>
               <Text style={styles.cell}>wartość energetyczna</Text>
@@ -79,7 +97,10 @@ const InformacjeScreen = ({ route }) => {
         </View>
       </View>
     </ScrollView>
-  );
+    <TouchableOpacity style={styles.addProductButton} onPress= {handleAddProduct}>
+      <Text style={styles.buttonText}>+</Text>
+    </TouchableOpacity>
+  </View>
+);
 };
-
 export default InformacjeScreen;

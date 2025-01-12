@@ -61,6 +61,21 @@ const styles = StyleSheet.create({
     height: 80,
     resizeMode: 'contain',
   },
+  addProductButton: {
+    bottom: 25,
+    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    backgroundColor: '#0096FF',
+    position: 'absolute',
+    right: 25,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
 export default styles;
