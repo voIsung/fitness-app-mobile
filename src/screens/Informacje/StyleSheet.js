@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   table: {
-    borderWidth: 1,
-    borderColor: '#ccc',
+    borderWidth: 2,
+    borderColor: '#000',
     borderRadius: 8,
     overflow: 'hidden',
   },
@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomWidth: 2,
+    borderBottomColor: '#000',
   },
   cell: {
     fontSize: 16,
@@ -60,6 +60,21 @@ const styles = StyleSheet.create({
     width: 150,
     height: 80,
     resizeMode: 'contain',
+  },
+  addProductButton: {
+    bottom: 25,
+    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    backgroundColor: '#0096FF',
+    position: 'absolute',
+    right: 25,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

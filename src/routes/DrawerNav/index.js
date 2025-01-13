@@ -6,6 +6,7 @@ import TreningScreen from "../../screens/Trening";
 import DietaScreen from "../../screens/Dieta";
 import WyszukiwarkaScreen from "../../screens/Wyszukiwarka";
 import PowiadomieniaScreen from "../../screens/Powiadomienia";
+import DodaneProduktyScreen from '../../screens/DodaneProdukty';
 
 const Drawer = createDrawerNavigator();
 

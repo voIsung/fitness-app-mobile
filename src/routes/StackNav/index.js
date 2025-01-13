@@ -5,6 +5,8 @@ import RejestracjaScreen from "../../screens/Rejestracja";
 import OpisTreninguScreen from "../../screens/OpisTreningu";
 import InformacjaScreen from "../../screens/Informacje";
 import DrawerNav from "../DrawerNav";
+import WyszukiwarkaScreen from '../../screens/Wyszukiwarka';
+import DodaneProduktyScreen from '../../screens/DodaneProdukty';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,8 @@ const StackNav = () => {
             <Stack.Screen name="Opis Treningu" component={OpisTreninguScreen} options={{ headerBackground: () => <GradientHeader/>}}/>
             <Stack.Screen name="Informacje o Produkcie" component={InformacjaScreen} options={{ headerBackground: () => <GradientHeader/>}}/>
             <Stack.Screen name="DrawerNav" component={DrawerNav} options={{ headerShown: false }}/>
+            <Stack.Screen name="Wyszukiwarka" component={WyszukiwarkaScreen} options={{ headerShown: false}}></Stack.Screen>
+            <Stack.Screen name="Dodane Produkty" component={DodaneProduktyScreen} options={{ headerBackground: () => <GradientHeader/>}}></Stack.Screen>
         </Stack.Navigator>
     );
 };

@@ -1,6 +1,6 @@
 import { View, FlatList, StyleSheet,Text } from 'react-native';
 import styles from './StyleSheet.js';
-import { useNotifications } from "../../context/NotificationContext/index.js";
+import { useNotifications } from "../../context/NotificationContext";
 import { ListItem, Icon, FAB } from 'react-native-elements';
 
 const PowiadomieniaScreen = () => {
