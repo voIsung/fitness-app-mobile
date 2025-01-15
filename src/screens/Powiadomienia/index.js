@@ -4,7 +4,7 @@ import { useNotifications } from "../../context/NotificationContext";
 import { ListItem, Icon, FAB } from 'react-native-elements';
 
 const PowiadomieniaScreen = () => {
-    const { notifications, deleteNotification, addNotification } = useNotifications();
+    const { notifications, deleteNotification, addNotification,sendNotification } = useNotifications();
 
     const handleDeleteNotification = (notificationId) => {
         deleteNotification(notificationId);
@@ -13,10 +13,11 @@ const PowiadomieniaScreen = () => {
     const handleAddNotification = () =>{
         var newNotification = {
             id: new Date().getTime(),
-            title: "NOWE",
-            message: "NOWE INFO MORDO"
+            title: "Nowe Powiadomienie",
+            message: "Informacja powiadomienia"
         }
         addNotification(newNotification);
+        sendNotification(newNotification);
     }
 
     return(

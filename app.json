@@ -31,6 +31,12 @@
     },
     "plugins": [
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "95993090-4fd8-4f38-a179-0c7924bd9f87"
+      }
+    },
+    "owner": "goryl5602"
   }
 }

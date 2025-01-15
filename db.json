@@ -66,14 +66,14 @@
       "haslo": "Test",
       "imie": "Test",
       "nazwisko": "Test",
-      "waga": 110,
+      "waga": 103,
       "wzrost": 190,
       "kroki": 5000,
       "cel": "Utrata wagi",
       "iloscTr": 5,
       "plec": "Mężczyzna",
-      "dataUr": "12.12.2002",
-      "imageUri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252Ffitness-app-mobile-9ca83541-74ed-4198-a29a-81b630065712/ImagePicker/13a2dd40-3388-4e75-9e6c-162a54c83d21.jpeg"
+      "dataUr": "23.01.2025",
+      "imageUri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252Ffitness-app-mobile-9ca83541-74ed-4198-a29a-81b630065712/ImagePicker/0895b056-a8fb-49ae-9e0d-c91fdad8f48b.jpeg"
     }
   ]
 }
