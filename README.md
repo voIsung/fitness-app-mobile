@@ -1,12 +1,12 @@
 # Fitness App Mobile
 
-A JavaScript application about fitness.
+React Native fitness app made as a group project for uni.
 
 ## Setup
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/Benonki/Fitness-app-mobile.git
+    git clone https://github.com/voIsung/fitness-app-mobile.git
     ```
 2. Install dependencies:
 	```bash
@@ -15,15 +15,14 @@ A JavaScript application about fitness.
 
 ## Running the App
 
-1. Change IP in JsonIpConfig.js on your IP
-2. Open in CMD or any kind of Console
-3. Start Json Server:
+1. Change IP in JsonIpConfig.js
+2. Start Json Server:
 	```bash
 	npx json-server db.json
     ```
-4. Start Expo:
+3. Start Expo:
 	```bash
 	npx expo start
     ```
-5. Open http://localhost:8081/
+4. Open http://localhost:8081/
 
